@@ -5,11 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "jsonbackend": "npx json-server --watch -p 3000 API/db.json",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "bootstrap": "^5.2.2",
+    "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "json-server": "^0.17.1",
+    "vue": "^3.2.45"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
