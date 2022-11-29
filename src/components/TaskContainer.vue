@@ -5,7 +5,7 @@
       <button class="cbtn"> Completed </button>
     </div>
   <AddTask/>
-  <TaskList :task="tasks"/>
+  <TaskList :todo="todos"/>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     TaskList
   },
   props:{
-    tasks: Array
+    todos: Array
   }
 }
 </script>

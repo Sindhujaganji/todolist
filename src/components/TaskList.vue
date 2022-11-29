@@ -1,7 +1,7 @@
 <template>
   <div>
-  <ul v-for="task in task" :key="task.id">
-    <li> {{task.todo}} </li>
+  <ul v-for="todo in todo" :key="todo.id">
+    <li> {{todo.todo}} </li>
     <button class="ebtn"> Edit </button>
     <button class="dbtn"> Delete </button>
     <button class="cbtn"> Completed </button>
@@ -13,7 +13,7 @@
 export default {
   name: 'TaskList',
   props:{
-    task: Array
+    todo: Array
   },
 };
 </script>

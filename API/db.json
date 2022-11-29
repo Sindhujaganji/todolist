@@ -1,5 +1,5 @@
 {
-  "tasks": [
+  "todos": [
     {
       "id": 1,
       "todo": "to complete the web-db project",
@@ -22,3 +22,4 @@
     }
   ]
 }
+

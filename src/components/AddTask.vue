@@ -17,7 +17,7 @@ export default {
   },
   methods:{
     addTask(){
-      fetch('http://localhost:3000/tasks', {
+      fetch('http://localhost:5959/api/todos', {
         method: 'POST',
         headers:{
           'Content-Type': 'application/json',

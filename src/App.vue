@@ -1,11 +1,10 @@
 <template>
   <h1> To-Do-List </h1>
-  <task-container :tasks="tasks"> </task-container>
+  <task-container :todos="todos"> </task-container>
 </template>
 <script>
 
 import TaskContainer from "@/components/TaskContainer";
-import {fetchTasks} from "@/service/TaskService";
 
 export default {
   name: 'App',
@@ -14,16 +13,20 @@ export default {
   },
   data(){
     return{
-      tasks: []
+      todos: []
     }
   },
   async created(){
-    this.tasks = await this.fetchTasks();
-   // console.log('')
+    this.todos = await this.fetchTasks();
   },
   methods:{
-    fetchTasks
-  },
+    async fetchTasks(){
+      const res = await fetch("http://localhost:5959/api/todos")
+      const data = await res.json()
+      console.log(data)
+      return data
+    },
+  }
 };
 </script>
 
