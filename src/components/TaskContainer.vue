@@ -1,53 +1,48 @@
 <template>
-  <div class="container">
-    <div class="lists">
+  <div class="lists">
+    <div>
       <button class="tbtn"> Tasks </button>
-      <button class="cbtn"> Completed </button>
+      <router-link :to="{ name: 'CompletedTasks' }"> Completed </router-link>
     </div>
-  <AddTask/>
-  <TaskList :todo="todos"/>
+    <div>
+      <button
+          @click="$emit('toggle-add-task')"
+          :class="this.showAddTask? 'close': 'abtn'"
+      >
+        {{this.showAddTask ? 'Close' : 'Add Task'}}
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import AddTask from "./AddTask.vue";
-import TaskList from "./TaskList.vue";
-
 export default {
   name: 'TaskContainer',
   components: {
-    AddTask,
-    TaskList
   },
   props:{
-    todos: Array
+    showAddTask: Boolean
   }
 }
 </script>
 
 <style scoped>
-.container{
-  box-sizing: border-box;
-  background-color: white;
-  width: 62rem;
-  height: 400px;
-  margin-left: 8.2rem;
-  margin-top: 4rem;
-}
 button{
   padding: 10px 15px;
   border: none;
   margin-top: 20px;
+  height: 2rem;
+  width: 7rem;
+  font-weight: bold;
+  cursor: pointer;
 }
 .lists{
-  margin-left: 68px;
-  margin-right: 64px;
+  display: flex;
+  justify-content: space-around;
 }
 .tbtn{
   background-color: #FCD12A;
   color: white;
-  font-weight: bold;
-  cursor: pointer;
 }
 .tbtn:hover{
   background-color: darkorange;
@@ -55,10 +50,23 @@ button{
 .cbtn{
   background-color: green;
   color: white;
-  font-weight: bold;
-  cursor: pointer;
 }
 .cbtn:hover{
   background-color: darkgreen;
+}
+.abtn{
+  background-color: #24A0ED;
+  color: white;
+}
+
+.abtn:hover{
+  background-color: dodgerblue;
+}
+.close{
+  background-color: red;
+}
+.close:hover{
+  background-color: darkred;
+  color: white;
 }
 </style>

@@ -1,32 +1,101 @@
 <template>
-  <h1> To-Do-List </h1>
-  <task-container :todos="todos"> </task-container>
+  <header>
+  <h2> To-Do-List </h2>
+  </header>
+  <div class="container">
+    <TaskContainer
+        :todos="todos"
+        @toggle-add-task="toggleAddTask"
+        :showAddTask="showAddTask"
+    />
+    <div v-show="showAddTask">
+      <AddTask @add-task="addTask"/>
+    </div>
+    <router-view></router-view>
+    <div class="tasklist">
+    <TaskList
+        :todos="todos"
+        @delete-task="deleteTask"
+        @set-active="setActive"
+    />
+    </div>
+  </div>
+  <footer>
+    <p> Contact information </p>
+  </footer>
 </template>
 <script>
 
 import TaskContainer from "@/components/TaskContainer";
+import TaskList from "@/components/TaskList";
+import AddTask from "@/components/AddTask";
 
 export default {
   name: 'App',
   components: {
-    TaskContainer
+    TaskContainer,
+    TaskList,
+    AddTask
   },
   data(){
     return{
-      todos: []
+      todos: [],
+      showAddTask: false
     }
   },
-  async created(){
-    this.todos = await this.fetchTasks();
-  },
   methods:{
-    async fetchTasks(){
-      const res = await fetch("http://localhost:5959/api/todos")
+    toggleAddTask(){
+      this.showAddTask = !this.showAddTask
+    },
+    async addTask(todo){
+      const res = await fetch('http://localhost:3000/todos',{
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(todo),
+      })
+      const  data = await res.json()
+      this.todos = [...this.todos, data]
+    },
+    async deleteTask(id){
+      if(confirm('Are you sure?')) {
+        const res = await fetch(`http://localhost:3000/todos/${id}`, {
+          method: 'DELETE',
+        })
+        res.status === 200 ? ( this.todos = this.todos.filter(
+            (todo) => todo.id !== id)) :alert('Error deleting task')
+      }
+    },
+    async setActive(id){
+      const taskToToggle = await this.fetchTask(id)
+      const updTask = {...taskToToggle, active: !taskToToggle.active}
+
+      const res = await fetch(`http://localhost:3000/todos/${id}`, {
+        method: 'PUT',
+        headers:{
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(updTask)
+      })
       const data = await res.json()
-      console.log(data)
+      this.todos = this.todos.map((todo)=>todo.id===id
+          ? {...todo, active: data.active}: todo)
+    },
+    async fetchTasks(){
+      const res = await fetch('http://localhost:3000/todos')
+      const data = await res.json()
       return data
     },
-  }
+    async fetchTask(id){
+      const res = await fetch(`http://localhost:3000/todos/${id}`)
+      const data = await res.json()
+      return data
+    },
+  },
+  async created(){
+    this.todos =  await this.fetchTasks()
+  },
 };
 </script>
 
@@ -40,13 +109,25 @@ export default {
 }
 
 body{
-  background-color: #85BEAF;
-  color: white;
   font-family: 'Poppins', sans-serif;
 }
 
-h1{
+header{
+  background-color: darkcyan;
+  color: white;
+  padding: 20px;
   text-align: center;
-  margin-top: 15px;
+}
+.tasklist{
+  margin-top: 50px;
+  margin-left: 10px;
+}
+
+footer {
+  margin-top: 60px;
+  background-color: darkcyan;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 </style>

@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "jsonbackend": "npx json-server --watch -p 3000 API/db.json",
+    "jsonbackend": "npx json-server --watch -p 3000 db.json",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -16,7 +16,8 @@
     "cors": "^2.8.5",
     "json-server": "^0.17.1",
     "vue": "^3.2.45",
-    "vue-axios": "^3.5.2"
+    "vue-axios": "^3.5.2",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

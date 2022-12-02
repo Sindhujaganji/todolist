@@ -1,0 +1,25 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "todo": "To complete the web-db project",
+      "description": "Have to complete it before 6th december",
+      "active": true,
+      "status": "completed"
+    },
+    {
+      "id": 2,
+      "todo": "To complete project of Data mining",
+      "description": "Have to complete it before 6th december",
+      "active": false,
+      "status": "inprogress"
+    },
+    {
+      "id": 3,
+      "todo": "To complete the Python project",
+      "description": "Have to complete it before 6th december",
+      "active": true,
+      "status": "inprogress"
+    }
+  ]
+}
